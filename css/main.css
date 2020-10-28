@@ -1,0 +1,21 @@
+.dropdown-item:hover {
+    background-color: rgb(168, 219, 236);
+}
+.navbar-menu {
+    padding: 3.5rem 0;
+    margin: auto;
+}
+.text-center {
+    text-align: center!important;
+}
+.navbar {
+    padding: 1rem 0;
+}
+.card {
+    z-index: 0;
+}
+
+@media screen and (max-width: 640px) {
+    .navbar > .container {justify-content: space-around;};
+    .container > .navbar-menu {vertical-align: baseline;}
+}

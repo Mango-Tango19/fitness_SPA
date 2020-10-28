@@ -6,80 +6,74 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/main.css">
-    <title>Bootstrap lesson</title>
+    <title>Fitness House Market</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top container-md">
     <div class="container">
       <a class="navbar-brand" href="#">
             Fitness House Market
-          </a>  
-      <div class="navbar">
+          </a> 
         <button type="button" class="btn btn-outline-light">
-         <span class="badge badge-light">9</span>
+         <span class="badge badge-light">0</span>
          <i class="fa fa-shopping-cart"></i>
          <span>Корзина</span>
         </button>
-      </div>
     </div>
   </nav>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
+  <nav class="navbar">
+    <div class="container navbar-menu">
         <div class="dropdown">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Количество занятий
+        <button type="button" class="btn btn-secondary dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Количество занятий
         </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">1</a>
-          <a class="dropdown-item" href="#">5</a>
-          <a class="dropdown-item" href="#">10</a>
+       <div class="dropdown-menu" id="amount">
+          <a class="dropdown-item" href="#">разовое посещение</a>
+          <a class="dropdown-item" href="#">18 занятий</a>
+          <a class="dropdown-item" href="#">36 занятий</a>
+          <a class="dropdown-item" href="#">100 занятий</a>
         </div>
       </div>
       <div class="dropdown">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Срок действия
       </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">1 мес.</a>
-        <a class="dropdown-item" href="#">6 мес.</a>
-        <a class="dropdown-item" href="#">12 мес.</a>
+      <div class="dropdown-menu" id="date">
+       <a class="dropdown-item" href="#">1 месяц</a>
+        <a class="dropdown-item" href="#">6 месяцев</a>
+        <a class="dropdown-item" href="#">1 год</a>
       </div>
     </div>
     <div class="dropdown">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Время посещения
       </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">7.00-12.00</a>
-        <a class="dropdown-item" href="#">12.00-17.00</a>
-        <a class="dropdown-item" href="#">17.00-20.00</a>
-        <a class="dropdown-item" href="#">круглосуточно</a>
+      <div class="dropdown-menu" id="time">
+        <a class="dropdown-item" href="#">утро</a>
+        <a class="dropdown-item" href="#">вечер</a>
       </div>
     </div>
     <div class="dropdown">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Тип секции
       </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Групповые занятия</a>
-        <a class="dropdown-item" href="#">Индивидуальные занятия</a>
-        <a class="dropdown-item" href="#">Силовые упражнения</a>
+      <div class="dropdown-menu" id="type">
+        <a class="dropdown-item" href="#">вода</a>
       </div>
     </div>
     <div class="dropdown">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-display="static" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Категория тренера
       </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Мастер спорта</a>
-        <a class="dropdown-item" href="#">Чеспион по бодибилдингу</a>
-        <a class="dropdown-item" href="#">Фитоняшка</a>
+      <div class="dropdown-menu" id="trainer">
+       <a class="dropdown-item" href="#">профи</a>
+        <a class="dropdown-item" href="#">мастер</a>
       </div>
     </div>
     </div>
   </nav>
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-3">
+  <div class="container card-desk">
+    <div class="row row-cols-1 row-cols-md-2">
     </div>
   </div>
   <script src="./js/index.js"></script>
