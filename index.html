@@ -21,60 +21,36 @@
         </button>
     </div>
   </nav>
-    <div class="container container-menu-buttons">
-      <div class="row menu-buttons">
-        <div class="dropdown">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Количество занятий
-        </button>
-       <div class="dropdown-menu" id="amount">
-          <a class="dropdown-item" href="#">разовое посещение</a>
-          <a class="dropdown-item" href="#">18 занятий</a>
-          <a class="dropdown-item" href="#">36 занятий</a>
-          <a class="dropdown-item" href="#">100 занятий</a>
-        </div>
-      </div>
-      <div class="dropdown">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Срок действия
-      </button>
-      <div class="dropdown-menu" id="date">
-       <a class="dropdown-item" href="#">1 месяц</a>
-        <a class="dropdown-item" href="#">6 месяцев</a>
-        <a class="dropdown-item" href="#">1 год</a>
-      </div>
-    </div>
-    <div class="dropdown">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Время посещения
-      </button>
-      <div class="dropdown-menu" id="time">
-        <a class="dropdown-item" href="#">утро</a>
-        <a class="dropdown-item" href="#">вечер</a>
-      </div>
-    </div>
-    <div class="dropdown">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Тип секции
-      </button>
-      <div class="dropdown-menu" id="type">
-        <a class="dropdown-item" href="#">вода</a>
-      </div>
-    </div>
-    <div class="dropdown">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-display="static" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Категория тренера
-      </button>
-      <div class="dropdown-menu" id="trainer">
-       <a class="dropdown-item" href="#">профи</a>
-        <a class="dropdown-item" href="#">мастер</a>
-      </div>
-    </div>
-    </div>
-  </div>
+    <div>
+  <select class="form-control" name="amount" id="amount">
+        <option value="количество занятий">Количество занятий</option>
+        <option value="разовое посещение">разовое посещение</option>
+        <option value="18 занятий">18 занятий</option>
+        <option value="36 занятий">36 занятий</option>
+        <option value="100 занятий">100 занятий</option>
+  </select>
+  <select class="form-control" name="date" id="date">
+        <option value="Срок занятий">Срок занятий</option>
+        <option value="1 месяц">1 месяц</option>
+        <option value="6 месяцев">6 месяцев</option>
+        <option value="1 год">1 год</option>
+  </select>
+    <select class="form-control" name="time">
+      <option value="Время посещения">Время посещения</option>
+        <option value="утро">утро</option>
+        <option value="вечер">вечер</option>
+    </select>
+    <select class="form-control" name="type">
+      <option value="Тип секции">Тип секции</option>
+      <option value="вода">вода</option>
+  </select>
+    <select class="form-control" name="trainer">
+      <option value="Категория тренера">Категория тренера</option>
+      <option value="профи">профи</option>
+      <option value="мастер">мастер</option>
+    </select>
+    <button type="button" class="btn btn-secondary btn-lg submit-filters">Применить</button>
   <div class="container card-desk">
-    <!--<div class="row-cols-3 row-cols-md-2">
-    </div> -->
   </div>
   <script src="./js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

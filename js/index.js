@@ -1,5 +1,6 @@
-const menuItemsArr = document.querySelectorAll('.dropdown-item');
-let cardArray = [];
+const menuItemsArr = document.querySelectorAll('.dropdown-item'),
+     submitBtn = document.querySelector('.submit-filters');
+let filtersArray = [];
 
 class CardItem {
     constructor (arr, parentSelector = '.card-desk') { //'.row-cols-3.row-cols-md-2'
@@ -19,9 +20,10 @@ class CardItem {
     };
 
 
-    renderCard() {
+    renderCards(cardArray) {
+        cardArray.forEach((card) => {
         const cardItem = document.createElement('div');
-        cardItem.classList.add('card', 'h100',);
+        cardItem.classList.add('card', 'h100');
         cardItem.id = `${this.alias}`;
         const tags = this.renderTags();
         // <a href="http://localhost:8888/service/${this.alias}"></a>
@@ -34,43 +36,62 @@ class CardItem {
            ${tags}
         </div>
         `;
+    })
         document.querySelector(this.parentSelector).append(cardItem);
-        
     };
+
+    //filterCards(cardsArray, filtersArray) {
+
+
+
 };
 
 
 
-const getData = async (url) => {
-    const res = await fetch(url);
-    if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
-    } else {
-        return await res.json();
+const getCards = async (url) => {
+    return await fetch(url);
+    // if (!res.ok) {
+    //     throw new Error(`Could not fetch ${url}, status ${res.status}`);
+    // } else {
+    //      await res.json()
+
 };
-}
+
+getCards(('http://localhost:3000/services'))
+            .then(data => data.json()
+            .then(cardsArray => {
+                cardsArray.forEach((card) => {
+                    filterCards(filtersArray, cardsArray);
+                })
+            }));
+
+function getFilters() {
+
+};
+
+submitBtn.addEventListener('click', () => {
+    //debugger!!!!
+    let selectedOptions = document.getElementById('#amount');
+    console.log(selectedOptions.value);
+});
+
+
+
+function filterCards(cardsArray, filtersArray) {
+
+};
 
 // getData('http://localhost:3000/services')
 //     .then(data => {
-//         data.forEach((arr) => {
-//     new CardItem(arr).renderCard();
-//     })
-// });
-
-
-getData('http://localhost:3000/services')
-    .then(data => {
-        data.forEach((obj) => {
-    const card = new CardItem(obj);
-    card.renderCard();
-    pushCardToArray(card, cardArray);
-    })
-});
+//         data.forEach((obj) => {
+//     const card = new CardItem(obj);
+    // card.renderCard();
+    // pushCardToArray(card, cardsArray);
+    // pushTagToArray(card, tagsArray);
 
 function pushCardToArray(card, arr) {
     arr.push(card);
-};
-
+}
 
 
 
@@ -83,13 +104,17 @@ menuItemsArr.forEach((item) => {
     })
 });
 
-function changeMenuValue(chosenItemNode) {
-    const parentMenuId = chosenItemNode.closest('div[id]').id;
-    const menuTitle = document.getElementById(parentMenuId);
-    const dropDownMenu = menuTitle.parentElement;
-    const button = dropDownMenu.querySelector('button');
-    button.textContent = chosenItemNode.textContent
-};
+// function changeMenuValue(chosenItemNode) {
+//     const parentMenuId = chosenItemNode.closest('div[id]').id;
+//     const menuTitle = document.getElementById(parentMenuId);
+//     const dropDownMenu = menuTitle.parentElement;
+//     const button = dropDownMenu.querySelector('button');
+//     button.textContent = chosenItemNode.textContent
+// };
+
+
+
+
 
 
 function showTargetCards(chosenItemNode) {
@@ -108,33 +133,6 @@ function showTargetCards(chosenItemNode) {
 
 function isContainItemNode(nodeText) {
     upperCards = [];
-    for ( let i=0; i < cardArray.length; i++) {
-        let propsArr = cardArray[i].props;
-        propsArr.forEach((obj) => {
-            const arrObjValues = Object.values(obj);
-            debugger
-            if (arrObjValues.includes(nodeText)) {
-                /// end
-            }
-        })
-    }
-    // cardArray.forEach((card) => {
-    //     //console.log(cardArray);
-    //     const cardTags = card.props;
-    //     //console.log(cardTags);
-    //     cardTags.forEach((tag) => {
-    //         let arrTags = Object.values(tag);
-    //         debugger
-    //             switch (arrTags[1] === title) {
-    //                 case true
-    //                 break;
-
-    //             };
-                    
-    //         });
-        
-    // });
-    console.log(upperCards);
 };
 
 // function isMatch(elem, arr) {
