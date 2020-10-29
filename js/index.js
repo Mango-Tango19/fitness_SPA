@@ -2,7 +2,7 @@ const menuItemsArr = document.querySelectorAll('.dropdown-item');
 let cardArray = [];
 
 class CardItem {
-    constructor (arr, parentSelector = '.row.row-cols-1.row-cols-md-2') {
+    constructor (arr, parentSelector = '.card-desk') { //'.row-cols-3.row-cols-md-2'
         this.image = arr['image'];
         this.alias = arr['alias'];
         this.title = arr['title'];
@@ -21,11 +21,11 @@ class CardItem {
 
     renderCard() {
         const cardItem = document.createElement('div');
-        cardItem.classList.add('col', 'mb-4');
+        cardItem.classList.add('card', 'h100',);
+        cardItem.id = `${this.alias}`;
         const tags = this.renderTags();
         // <a href="http://localhost:8888/service/${this.alias}"></a>
         cardItem.innerHTML = `
-        <div class="card  h-100" style="width: 18rem;" id=${this.alias}>
         <img src=${this.image} class="card-img-top rounded" alt="Fitness-house">
         <div class="card-body">
             <h5 class="card-title">${this.title}</h5>
@@ -33,7 +33,6 @@ class CardItem {
             <span class="card-title pricing-card-title">Стоимость ${this.price} руб.</span>
            ${tags}
         </div>
-    </div>
         `;
         document.querySelector(this.parentSelector).append(cardItem);
         
