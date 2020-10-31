@@ -1,9 +1,10 @@
 const menuItemsArr = document.querySelectorAll('.dropdown-item'),
-     submitBtn = document.querySelector('.submit-filters');
-let filtersArray = [];
-
+    //submitBtn = document.querySelector('.submit-filters'),
+    selectOptions = document.getElementsByClassName('form-control'),
+    selectOptionsArray = Array.from(selectOptions);
+let cardsArray = [];
 class CardItem {
-    constructor (arr, parentSelector = '.card-desk') { //'.row-cols-3.row-cols-md-2'
+    constructor(arr, parentSelector = '.card-desk') { //'.row-cols-3.row-cols-md-2'
         this.image = arr['image'];
         this.alias = arr['alias'];
         this.title = arr['title'];
@@ -12,37 +13,35 @@ class CardItem {
         this.price = arr['price'];
         this.parentSelector = parentSelector;
     };
-
     renderTags() {
-        return this.props.map(({title, value}) => {
+        return this.props.map(({
+            title,
+            value
+        }) => {
             return `<a href="#" title=${title} class="btn btn-outline-primary btn-sm m-1" role="button">${value}</a>`;
         }).join('');
     };
 
 
-    renderCards(cardArray) {
-        cardArray.forEach((card) => {
+    buildCards(card) {
         const cardItem = document.createElement('div');
         cardItem.classList.add('card', 'h100');
         cardItem.id = `${this.alias}`;
         const tags = this.renderTags();
         // <a href="http://localhost:8888/service/${this.alias}"></a>
         cardItem.innerHTML = `
-        <img src=${this.image} class="card-img-top rounded" alt="Fitness-house">
-        <div class="card-body">
-            <h5 class="card-title">${this.title}</h5>
-            <p class="card-text">${this.description}</p>
-            <span class="card-title pricing-card-title">Стоимость ${this.price} руб.</span>
-           ${tags}
-        </div>
-        `;
-    })
+        <a class="alias" href="http://localhost:8888/service/${this.alias}">
+            <img src=${this.image} class="card-img-top rounded" alt="Fitness-house">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">${this.title}</h5>
+                <p class="card-text">${this.description}</p>
+                <span class="card-title pricing-card-title">Стоимость ${this.price} руб.</span>
+            ${tags}
+            </div>
+            `;
         document.querySelector(this.parentSelector).append(cardItem);
-    };
-
-    //filterCards(cardsArray, filtersArray) {
-
-
+    }
 
 };
 
@@ -56,86 +55,75 @@ const getCards = async (url) => {
     //      await res.json()
 
 };
-
-getCards(('http://localhost:3000/services'))
-            .then(data => data.json()
-            .then(cardsArray => {
-                cardsArray.forEach((card) => {
-                    filterCards(filtersArray, cardsArray);
-                })
-            }));
-
-function getFilters() {
-
+function renderCards(selectedFilters = []) {
+    getCards(('http://localhost:3000/services'))
+        .then(data => data.json())
+        .then(cardsArray => {
+            clearCardDesk();
+            let filteredCardsArray = filteredCards(cardsArray, selectedFilters) //очищенный массив
+            addCardToField(filteredCardsArray);
+           addLinksToImages();
+        })
 };
 
-submitBtn.addEventListener('click', () => {
-    //debugger!!!!
-    let selectedOptions = document.getElementById('#amount');
-    console.log(selectedOptions.value);
-});
 
 
+function filteredCards(cardsArray, selectedFilters) {
 
-function filterCards(cardsArray, filtersArray) {
+    if (selectedFilters.length === 0) {
+        return cardsArray;
+    }
+    let newCardsArray = []
+    cardsArray.forEach((card) => {
+        let properties = card.properties.map(item => item.value);
+        let result = selectedFilters.reduce((result, filter) => {
+            if (result === false) {
+                return false
+            }
+            if (properties.includes(filter)) {
+                return true
+            }
+            return false;
+        }, true);
 
-};
-
-// getData('http://localhost:3000/services')
-//     .then(data => {
-//         data.forEach((obj) => {
-//     const card = new CardItem(obj);
-    // card.renderCard();
-    // pushCardToArray(card, cardsArray);
-    // pushTagToArray(card, tagsArray);
-
-function pushCardToArray(card, arr) {
-    arr.push(card);
-}
-
-
-
-
-menuItemsArr.forEach((item) => {
-    item.addEventListener('click', (e) => {
-        changeMenuValue(e.target);
-        //console.log(e.target); <a class="dropdown-item" href="#">утро</a>
-        showTargetCards(e.target);
-    })
-});
-
-// function changeMenuValue(chosenItemNode) {
-//     const parentMenuId = chosenItemNode.closest('div[id]').id;
-//     const menuTitle = document.getElementById(parentMenuId);
-//     const dropDownMenu = menuTitle.parentElement;
-//     const button = dropDownMenu.querySelector('button');
-//     button.textContent = chosenItemNode.textContent
-// };
-
-
-
-
-
-
-function showTargetCards(chosenItemNode) {
-    //ChosenItemNode = <a class="dropdown-item" href="#">утро</a>
-    const nodeText = chosenItemNode.textContent;
-    cardArray.forEach((card) => {
-        if (isContainItemNode(nodeText)) {
-            console.log('что то с z-index');//
-            
-        } else {
-            console.log('noooooo');
+        if (result) {
+            newCardsArray.push(card);
         }
     })
-
+    return newCardsArray;
 };
 
-function isContainItemNode(nodeText) {
-    upperCards = [];
+function addCardToField(filteredCardsArray) {
+    filteredCardsArray.forEach((obj) => {
+        const card = new CardItem(obj);
+        card.buildCards(card);
+
+    })
+}
+
+function clearCardDesk() {
+    const cardDesk = document.querySelector('.card-desk');
+    cardDesk.innerHTML = '';
 };
 
-// function isMatch(elem, arr) {
-//     return arr.includes(elem)
+function pushCardToArray(card, cardArray) {
+    cardArray.push(card);
+}
 
-// };
+renderCards();
+
+//submitBtn.addEventListener('click', () => renderCards(getFilters()));
+
+selectOptionsArray.forEach(item => {
+    item.addEventListener('change', () => renderCards(getFilters()))
+});
+
+function getFilters() {
+    let selectedFilters = [];
+    selectOptionsArray.forEach((filter) => {
+        if (filter.value) {
+            selectedFilters.push(filter.value)
+        }
+    })
+    return selectedFilters
+};

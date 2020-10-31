@@ -5,6 +5,12 @@
     padding: 3.5rem 0;
     margin: auto;
 }
+div.container.menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+
+}
 
 div.container.card-desk {
     display: flex;
