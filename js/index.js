@@ -1,7 +1,8 @@
-const menuItemsArr = document.querySelectorAll('.dropdown-item'),
-    //submitBtn = document.querySelector('.submit-filters'),
-    selectOptions = document.getElementsByClassName('form-control'),
-    selectOptionsArray = Array.from(selectOptions);
+const selectOptions = document.getElementsByClassName('form-control'),
+      selectOptionsArray = Array.from(selectOptions),
+      optionsMenu = document.querySelector('.container.menu'),
+      cardDesk = document.querySelector('.container.card-desk');
+
 let cardsArray = [];
 class CardItem {
     constructor(arr, parentSelector = '.card-desk') { //'.row-cols-3.row-cols-md-2'
@@ -30,7 +31,7 @@ class CardItem {
         const tags = this.renderTags();
         // <a href="http://localhost:8888/service/${this.alias}"></a>
         cardItem.innerHTML = `
-        <a class="alias" href="http://localhost:8888/service/${this.alias}">
+        <a class="alias" href="#">
             <img src=${this.image} class="card-img-top rounded" alt="Fitness-house">
             </a>
             <div class="card-body">
@@ -45,6 +46,13 @@ class CardItem {
 
 };
 
+function buildUrl(state, pagetitle = 'Fitness House Market', url) {
+    // const state = { 'page_id': 1, 'user_id': 5 }
+    // const title = ''
+    // const url = 'hello-world.html'
+    //let state = 'service';
+    return history.pushState(state, pagetitle, url)
+};
 
 
 const getCards = async (url) => {
@@ -62,10 +70,24 @@ function renderCards(selectedFilters = []) {
             clearCardDesk();
             let filteredCardsArray = filteredCards(cardsArray, selectedFilters) //очищенный массив
             addCardToField(filteredCardsArray);
-           addLinksToImages();
+            addEventsToImages(filteredCardsArray);
+            //buildUrl();
         })
 };
 
+function addEventsToImages(filteredCardsArray) { //передать состояние!!
+    const links = document.querySelectorAll('a');
+    links.forEach((link) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            debugger
+            optionsMenu.innerHTML = '';
+            cardDesk.innerHTML = '';
+            
+        })
+    })
+
+};
 
 
 function filteredCards(cardsArray, selectedFilters) {
