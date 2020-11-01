@@ -32,7 +32,7 @@ class CardItem {
         // <a href="http://localhost:8888/service/${this.alias}"></a>
         cardItem.innerHTML = `
         <a class="alias" href="#">
-            <img src=${this.image} class="card-img-top rounded" alt="Fitness-house">
+            <img src=${this.image} class="card-img-top rounded" alt=${this.alias}>
             </a>
             <div class="card-body">
                 <h5 class="card-title">${this.title}</h5>
@@ -44,15 +44,44 @@ class CardItem {
         document.querySelector(this.parentSelector).append(cardItem);
     }
 
+    buildSingleCard(card) {
+        debugger
+        const singleCard = document.createElement('div');
+        singleCard.classList.add('container');
+        //singleCard.classList.add('container');
+        //верстка!!
+        singleCard.innerHTML = `
+        <div class="card mb-3" style="max-width: 100%;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+                <img src=${this.image} class="card-img" alt=${this.alias}>
+                </div>
+                <div class="col-sm-12">
+                <div class="card-body">
+                    <h5 class="card-title">${this.title}</h5>
+                    <p class="card-text">${this.description}</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+            </div>
+        </div>
+        </div>
+    
+        `;
+        //document.querySelector(this.parentSelector).insertBefore(singleCard);
+       cardDesk.after(singleCard);
+
+
+    };
+
 };
 
-function buildUrl(state, pagetitle = 'Fitness House Market', url) {
-    // const state = { 'page_id': 1, 'user_id': 5 }
-    // const title = ''
-    // const url = 'hello-world.html'
-    //let state = 'service';
-    return history.pushState(state, pagetitle, url)
-};
+// function buildUrl(state, pagetitle = 'Fitness House Market', url) {
+//     // const state = { 'page_id': 1, 'user_id': 5 }
+//     // const title = ''
+//     // const url = 'hello-world.html'
+//     //let state = 'service';
+//     return history.pushState(state, pagetitle, url)
+// };
 
 
 const getCards = async (url) => {
@@ -69,25 +98,70 @@ function renderCards(selectedFilters = []) {
         .then(cardsArray => {
             clearCardDesk();
             let filteredCardsArray = filteredCards(cardsArray, selectedFilters) //очищенный массив
+            let state = new State('filteredCards').buildUrl();
             addCardToField(filteredCardsArray);
             addEventsToImages(filteredCardsArray);
-            //buildUrl();
         })
 };
+
+class State {
+    constructor(state, ...cardUrl) {
+    this.state = state;
+    this.url = cardUrl;
+    }
+    buildUrl()  {
+        if (this.state === 'filteredCards') {
+            this.url = '';
+        } else {
+            this.state = 'oneCard';
+            this.url = this.url.join();
+        }
+    const pageTitle = 'Fitness House'
+    return history.pushState(this.state, pageTitle, this.url)   
+        
+    }
+};
+
+
 
 function addEventsToImages(filteredCardsArray) { //передать состояние!!
     const links = document.querySelectorAll('a');
     links.forEach((link) => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            debugger
-            optionsMenu.innerHTML = '';
-            cardDesk.innerHTML = '';
-            
+            clearFieldNoHeader();
+            let state = new State('oneCard', e.target.alt);
+            state.buildUrl();
+            buildSingleCard(finedSelectedCard(filteredCardsArray, e.target.alt));
+
         })
     })
 
 };
+
+function finedSelectedCard(filteredCardsArray, cardAlt) {
+    let cardObj;
+    filteredCardsArray.forEach((card) => {
+        if (card.alias === cardAlt) {   
+            return cardObj = card;
+        }
+    })
+    return cardObj;
+}
+
+
+function buildSingleCard(cardObj) {
+    const singleCard = new CardItem(cardObj);
+    debugger
+    singleCard.buildSingleCard(cardObj);
+
+};
+
+
+function clearFieldNoHeader() {
+    optionsMenu.innerHTML = '';
+    cardDesk.innerHTML = '';
+}
 
 
 function filteredCards(cardsArray, selectedFilters) {
