@@ -3,7 +3,32 @@ const selectOptions = document.getElementsByClassName('form-control'),
       optionsMenu = document.querySelector('.container.menu'),
       cardDesk = document.querySelector('.container.card-desk');
 
+let currentLocation = window.location.href;
+
 let cardsArray = [];
+debugger
+function detectLocation(currentLocation, state = '') {
+    let locationArray = currentLocation.split('/').filter(function(item) {
+        return item !== '';
+    });
+
+    if (locationArray[locationArray.length - 1] === 'fitness') {
+        state = 'filteredCards';
+    } else {
+        state = locationArray[locationArray.length - 1];
+    }
+    return state;
+};
+
+if (detectLocation(currentLocation) != 'filteredCards') {
+    let cards = document.getElementsByClassName('card');
+    if (card.alias === detectLocation(currentLocation)) {
+        card.hidden = false;
+    } else {
+        card.hidden = true;
+    }
+
+}
 class CardItem {
     constructor(arr, parentSelector = '.card-desk') { //'.row-cols-3.row-cols-md-2'
         this.image = arr['image'];
@@ -45,7 +70,6 @@ class CardItem {
     }
 
     buildSingleCard(card) {
-        debugger
         const singleCard = document.createElement('div');
         singleCard.classList.add('container');
         //singleCard.classList.add('container');
@@ -53,15 +77,15 @@ class CardItem {
         singleCard.innerHTML = `
         <div class="card mb-3" style="max-width: 100%;">
         <div class="row no-gutters">
-          <div class="col-md-4">
+          <div class="col-md-4 col-lg-12">
                 <img src=${this.image} class="card-img" alt=${this.alias}>
                 </div>
-                <div class="col-sm-12">
+            <div class="col-md-8 col-lg-12">
                 <div class="card-body">
                     <h5 class="card-title">${this.title}</h5>
                     <p class="card-text">${this.description}</p>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+                </div>
             </div>
         </div>
         </div>
@@ -124,7 +148,7 @@ class State {
 
 
 
-function addEventsToImages(filteredCardsArray) { //передать состояние!!
+function addEventsToImages(filteredCardsArray) { 
     const links = document.querySelectorAll('a');
     links.forEach((link) => {
         link.addEventListener('click', (e) => {
@@ -152,10 +176,10 @@ function finedSelectedCard(filteredCardsArray, cardAlt) {
 
 function buildSingleCard(cardObj) {
     const singleCard = new CardItem(cardObj);
-    debugger
     singleCard.buildSingleCard(cardObj);
 
 };
+
 
 
 function clearFieldNoHeader() {
