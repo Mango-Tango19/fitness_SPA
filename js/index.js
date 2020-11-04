@@ -7,6 +7,15 @@ let currentLocation = window.location.href;
 
 let cardsArray = [];
 debugger
+// onLoad();
+// function onLoad() {
+//     let link = window.location.pathname; 
+//     if (link === '/fitness/') {
+//     let href = link.replace("fitness/", "services");
+//     }
+// };
+
+
 function detectLocation(currentLocation, state = '') {
     let locationArray = currentLocation.split('/').filter(function(item) {
         return item !== '';
@@ -56,7 +65,7 @@ class CardItem {
         const tags = this.renderTags();
         // <a href="http://localhost:8888/service/${this.alias}"></a>
         cardItem.innerHTML = `
-        <a class="alias" href="#">
+        <a class="link" href="/${this.alias}" data-link>
             <img src=${this.image} class="card-img-top rounded" alt=${this.alias}>
             </a>
             <div class="card-body">
